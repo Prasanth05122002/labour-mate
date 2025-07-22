@@ -1,49 +1,48 @@
-package com.labour.mate.user.model;
+package com.labour.mate.recruiter.dto;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.Data;
 
-import java.util.List;
 @Data
-@Entity
-@Table(name="users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class RecruiterDTO {
     private Long id;
-
     @NotBlank(message = "First name must not be blank")
     @Size(max = 50, message = "First name must not exceed 50 characters")
-    @Column(nullable = false)
     private String firstName;
 
     @NotBlank(message = "Last name must not be blank")
     @Size(max = 50, message = "Last name must not exceed 50 characters")
-    @Column(nullable = false)
     private String lastName;
 
     @NotBlank(message = "Email must not be blank")
     @Email(message = "Email should be valid")
-    @Column(nullable = false, unique = true)
     private String email;
 
     @NotBlank(message = "Password must not be blank")
     @Size(min = 8, message = "Password must be at least 8 characters long")
-    @Column(nullable = false)
     private String password;
-
-    @NotNull(message = "Skills must not be null")
-    @ElementCollection
-    @CollectionTable(name = "user_skills", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "skill")
-    private List<String> skills;
+    @NotBlank(message = "Company name must not be blank")
+    @Size(max = 100, message = "Company name must not exceed 100 characters")
+    private String companyName;
 
     @NotNull(message = "Rating must not be null")
     private Double rating;
+
+    public RecruiterDTO() {
+    }
+
+    public RecruiterDTO(Long id, String firstName, String lastName, String password, String email, String companyName, Double rating) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.companyName = companyName;
+        this.rating = rating;
+    }
 
     public Long getId() {
         return id;
@@ -85,12 +84,12 @@ public class User {
         this.password = password;
     }
 
-    public List<String> getSkills() {
-        return skills;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setSkills(List<String> skills) {
-        this.skills = skills;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public Double getRating() {
@@ -98,19 +97,6 @@ public class User {
     }
 
     public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
-    public User() {
-    }
-
-    public User(Long id, String lastName, String firstName, String email, List<String> skills, String password, Double rating) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.email = email;
-        this.skills = skills;
-        this.password = password;
         this.rating = rating;
     }
 }
