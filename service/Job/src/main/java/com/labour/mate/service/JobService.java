@@ -54,6 +54,9 @@ public class JobService {
         if (!jobRepository.existsById(job.getJobId())) {
             throw new IllegalArgumentException("Job with ID " + job.getJobId() + " does not exist.");
         }
+        Job existingJob = jobRepository.findById(job.getJobId())
+                .orElseThrow(() -> new IllegalArgumentException("Job with ID " + job.getJobId() + " does not exist."));
+        job.setRecruiterId(existingJob.getRecruiterId());
         return jobRepository.save(job);
     }
 }

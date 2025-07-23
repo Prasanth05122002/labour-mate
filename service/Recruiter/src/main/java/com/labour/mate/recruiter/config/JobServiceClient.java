@@ -14,4 +14,6 @@ public interface JobServiceClient {
     JobDto getJobById(@PathVariable("jobId") Long jobId);
     @PutMapping("/{jobId}")
     JobDto updateJob(@PathVariable("jobId") Long jobId, @RequestBody JobDto jobDto);
+    @PutMapping("/{jobId}/close")
+    String closeJob(@PathVariable Long jobId);
 }

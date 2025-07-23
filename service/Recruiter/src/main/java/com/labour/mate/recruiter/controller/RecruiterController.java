@@ -73,6 +73,15 @@ public class RecruiterController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PutMapping("/closeJob/{jobId}")
+    public ResponseEntity<String> closeJob(@PathVariable Long jobId) {
+        String closedJob = recruiterService.closeJob(jobId);
+        if (closedJob != null) {
+            return ResponseEntity.ok(closedJob);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
 }

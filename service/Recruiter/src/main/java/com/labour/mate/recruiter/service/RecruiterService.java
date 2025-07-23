@@ -55,4 +55,9 @@ public class RecruiterService {
     public JobDto updateJob(Long jobId, JobDto jobDto) {
         return jobServiceClient.updateJob(jobId, jobDto);
     }
+
+
+    public String closeJob(Long jobId) {
+        return jobServiceClient.closeJob(jobId);
+    }
 }
